@@ -1,6 +1,5 @@
-import type { Request, Response } from "express";
-import { handleWithApp } from "../_shared";
+import { campaignReleaseHandler } from "../_core";
 
-export default async function handler(req: Request, res: Response) {
-  return handleWithApp(req, res);
+export default async function handler(req: any, res: any) {
+  return campaignReleaseHandler(req, res);
 }
