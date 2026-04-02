@@ -15,7 +15,13 @@ async function getApp() {
   return appPromise;
 }
 
-export default async function handler(req: Request, res: Response) {
+export async function handleWithApp(req: Request, res: Response, forcedPath?: string) {
   const app = await getApp();
+  if (forcedPath) {
+    const queryIndex = req.url.indexOf("?");
+    const query = queryIndex >= 0 ? req.url.slice(queryIndex) : "";
+    req.url = `${forcedPath}${query}`;
+  }
+
   return app(req, res);
 }

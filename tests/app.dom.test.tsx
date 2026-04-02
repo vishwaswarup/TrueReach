@@ -41,7 +41,7 @@ async function submitCampaignEntry(user: ReturnType<typeof userEvent.setup>, use
 describe("App UI", () => {
   it("renders the default analysis on load", async () => {
     const fetchMock = vi.fn((input: RequestInfo | URL) => {
-      if (typeof input === "string" && input.startsWith("/api/analyze/")) {
+      if (typeof input === "string" && input.startsWith("/api/analyze")) {
         return createFetchResponse({
           score: 100,
           risk_level: "Low Risk",
@@ -85,7 +85,7 @@ describe("App UI", () => {
   it("shows the loading state while analysis is pending", async () => {
     const deferred = createDeferred<Response>();
     const fetchMock = vi.fn((input: RequestInfo | URL) => {
-      if (typeof input === "string" && input.startsWith("/api/analyze/")) {
+      if (typeof input === "string" && input.startsWith("/api/analyze")) {
         return deferred.promise;
       }
       return createFetchResponse({}, false, 404);
@@ -138,7 +138,7 @@ describe("App UI", () => {
 
   it("handles a successful campaign-driven flow", async () => {
     const fetchMock = vi.fn((input: RequestInfo | URL, init?: RequestInit) => {
-      if (typeof input === "string" && input.startsWith("/api/analyze/")) {
+      if (typeof input === "string" && input.startsWith("/api/analyze")) {
         return createFetchResponse({
           score: 10,
           risk_level: "High Risk",
@@ -206,7 +206,7 @@ describe("App UI", () => {
 
   it("shows release action only after engagement verification", async () => {
     const fetchMock = vi.fn((input: RequestInfo | URL) => {
-      if (typeof input === "string" && input.startsWith("/api/analyze/")) {
+      if (typeof input === "string" && input.startsWith("/api/analyze")) {
         return createFetchResponse({
           score: 10,
           risk_level: "High Risk",
@@ -264,7 +264,7 @@ describe("App UI", () => {
 
   it("returns to campaign entry when starting a new campaign", async () => {
     const fetchMock = vi.fn((input: RequestInfo | URL) => {
-      if (typeof input === "string" && input.startsWith("/api/analyze/")) {
+      if (typeof input === "string" && input.startsWith("/api/analyze")) {
         return createFetchResponse({
           score: 96,
           risk_level: "Low Risk",

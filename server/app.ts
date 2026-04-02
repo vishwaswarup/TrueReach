@@ -37,17 +37,21 @@ export async function createApp(options: AppOptions = {}) {
     }
   };
 
-  app.get("/api/analyze/:creator", async (req, res) => {
-    const { creator } = req.params;
+  const analyzeCreator = async (creator: string, res: express.Response) => {
+    const normalizedCreator = creator.trim().toLowerCase();
+    if (normalizedCreator.length === 0) {
+      return res.status(400).json({ error: "Creator is required" });
+    }
+
     const mockData = loadDataOrFallback();
 
     if (delayMs > 0) {
       await delay(delayMs);
     }
 
-    const influencer = mockData[creator.toLowerCase()];
+    const influencer = mockData[normalizedCreator];
     const isSynthetic = !influencer;
-    const profile = influencer ?? generateCreatorData(creator);
+    const profile = influencer ?? generateCreatorData(normalizedCreator);
     const commentAnalysis = await generateCommentQualityAnalysis(profile.comments);
     const analysis = buildAnalysisResult(profile, commentAnalysis);
     const [aiSummary, pricingInsight] = await Promise.all([
@@ -70,6 +74,16 @@ export async function createApp(options: AppOptions = {}) {
       pricing_insight: pricingInsight,
       synthetic: isSynthetic,
     });
+  };
+
+  app.get("/api/analyze", async (req, res) => {
+    const creator = typeof req.query.creator === "string" ? req.query.creator : "";
+    return analyzeCreator(creator, res);
+  });
+
+  app.get("/api/analyze/:creator", async (req, res) => {
+    const { creator } = req.params;
+    return analyzeCreator(creator, res);
   });
 
   app.post("/api/campaign/start", (req, res) => {

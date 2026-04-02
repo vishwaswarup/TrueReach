@@ -104,7 +104,7 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/analyze/${creator}`);
+      const response = await fetch(`/api/analyze?creator=${encodeURIComponent(creator)}`);
       if (!response.ok) {
         const errorPayload = await response.json().catch(() => null);
         const message = errorPayload && typeof errorPayload.error === "string"
