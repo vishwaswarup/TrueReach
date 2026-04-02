@@ -105,7 +105,13 @@ export default function App() {
     setError(null);
     try {
       const response = await fetch(`/api/analyze/${creator}`);
-      if (!response.ok) throw new Error("Creator not found");
+      if (!response.ok) {
+        const errorPayload = await response.json().catch(() => null);
+        const message = errorPayload && typeof errorPayload.error === "string"
+          ? errorPayload.error
+          : "Creator not found";
+        throw new Error(message);
+      }
       const result = await response.json();
       setData(result);
       setCampaign(initialCampaignState);

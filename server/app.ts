@@ -28,16 +28,18 @@ export async function createApp(options: AppOptions = {}) {
     ?? (() => `CAMP${Math.floor(Math.random() * 1000)}`);
 
   const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  const loadDataOrFallback = () => {
+    try {
+      return getMockData();
+    } catch (error) {
+      console.warn("Failed to load creator data, using synthetic fallback", error);
+      return {} as InfluencerDataMap;
+    }
+  };
 
   app.get("/api/analyze/:creator", async (req, res) => {
     const { creator } = req.params;
-    let mockData: InfluencerDataMap;
-
-    try {
-      mockData = getMockData();
-    } catch (error) {
-      return res.status(500).json({ error: "Failed to load creator data" });
-    }
+    const mockData = loadDataOrFallback();
 
     if (delayMs > 0) {
       await delay(delayMs);
@@ -127,12 +129,7 @@ export async function createApp(options: AppOptions = {}) {
       return res.status(400).json({ error: "Invalid simulation payload" });
     }
 
-    let mockData: InfluencerDataMap;
-    try {
-      mockData = getMockData();
-    } catch (error) {
-      return res.status(500).json({ error: "Failed to load creator data" });
-    }
+    const mockData = loadDataOrFallback();
 
     const profile = mockData[creator.toLowerCase()] ?? generateCreatorData(creator);
     const current = buildAnalysisResult(profile);

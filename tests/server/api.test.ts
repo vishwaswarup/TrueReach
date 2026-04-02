@@ -57,6 +57,22 @@ describe("API endpoints", () => {
     expect(response.body.comment_analysis.explanation).toBeTypeOf("string");
   });
 
+  it("falls back to synthetic analysis when data source fails", async () => {
+    const app = await createApp({
+      getMockData: () => {
+        throw new Error("Data unavailable");
+      },
+      artificialDelayMs: 0,
+      enableVite: false,
+      serveFrontend: false,
+    });
+
+    const response = await request(app).get("/api/analyze/maria_lux");
+    expect(response.status).toBe(200);
+    expect(response.body.synthetic).toBe(true);
+    expect(response.body.ai_summary).toBeTypeOf("string");
+  });
+
   it("validates campaign payloads", async () => {
     const app = await createApp({
       getMockData: () => mockData,
