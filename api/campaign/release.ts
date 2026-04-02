@@ -1,4 +1,4 @@
-import { campaignReleaseHandler } from "../_core";
+import { campaignReleaseHandler } from "../_core.js";
 
 export default async function handler(req: any, res: any) {
   return campaignReleaseHandler(req, res);

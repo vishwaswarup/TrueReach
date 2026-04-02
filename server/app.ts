@@ -1,10 +1,10 @@
 import express from "express";
 import path from "path";
-import { createCampaignStore, CampaignStore } from "./campaignStore";
-import { loadInfluencerData } from "./data";
-import { buildAnalysisResult, buildCleanAudienceProfile, generateCreatorData } from "./logic";
-import { generateAuditSummary, generateCommentQualityAnalysis, generatePricingInsight } from "./aiSummary";
-import { InfluencerDataMap } from "./types";
+import { createCampaignStore, CampaignStore } from "./campaignStore.js";
+import { loadInfluencerData } from "./data.js";
+import { buildAnalysisResult, buildCleanAudienceProfile, generateCreatorData } from "./logic.js";
+import { generateAuditSummary, generateCommentQualityAnalysis, generatePricingInsight } from "./aiSummary.js";
+import { InfluencerDataMap } from "./types.js";
 
 export interface AppOptions {
   dataPath?: string;

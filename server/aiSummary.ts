@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
-import { DEFAULT_MOCK_COMMENTS, analyze_comments } from "./logic";
-import { CommentQualityAnalysis, InfluencerProfile } from "./types";
+import { DEFAULT_MOCK_COMMENTS, analyze_comments } from "./logic.js";
+import { CommentQualityAnalysis, InfluencerProfile } from "./types.js";
 
 export interface AISummaryInput {
   profile: InfluencerProfile;

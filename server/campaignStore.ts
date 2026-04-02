@@ -1,4 +1,4 @@
-import { Campaign } from "./types";
+import { Campaign } from "./types.js";
 
 export interface CampaignStore {
   startCampaign: (creator: string, amount: number, generateId: () => string) => Campaign;

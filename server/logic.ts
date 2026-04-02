@@ -1,4 +1,4 @@
-import { AnalysisResult, CommentQualityAnalysis, InfluencerProfile } from "./types";
+import { AnalysisResult, CommentQualityAnalysis, InfluencerProfile } from "./types.js";
 
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 const randomFloat = (min: number, max: number, decimals = 2) => {

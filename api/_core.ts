@@ -1,8 +1,8 @@
 import path from "path";
-import { loadInfluencerData } from "../server/data";
-import { buildAnalysisResult, buildCleanAudienceProfile, generateCreatorData } from "../server/logic";
-import { generateAuditSummary, generateCommentQualityAnalysis, generatePricingInsight } from "../server/aiSummary";
-import { Campaign, InfluencerDataMap } from "../server/types";
+import { loadInfluencerData } from "../server/data.js";
+import { buildAnalysisResult, buildCleanAudienceProfile, generateCreatorData } from "../server/logic.js";
+import { generateAuditSummary, generateCommentQualityAnalysis, generatePricingInsight } from "../server/aiSummary.js";
+import { Campaign, InfluencerDataMap } from "../server/types.js";
 
 const campaignStore = new Map<string, Campaign>();
 let cachedData: InfluencerDataMap | null = null;
