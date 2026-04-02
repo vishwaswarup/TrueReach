@@ -256,7 +256,7 @@ export default function App() {
     if (!data || simulatingCleanAudience) return;
     setSimulatingCleanAudience(true);
     try {
-      const response = await fetch("/simulate/clean-audience", {
+      const response = await fetch("/api/simulate/clean-audience", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ creator: campaignData.username }),

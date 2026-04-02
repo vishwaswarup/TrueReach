@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-import { createServer as createViteServer } from "vite";
 import { createCampaignStore, CampaignStore } from "./campaignStore";
 import { loadInfluencerData } from "./data";
 import { buildAnalysisResult, buildCleanAudienceProfile, generateCreatorData } from "./logic";
@@ -122,7 +121,7 @@ export async function createApp(options: AppOptions = {}) {
     return res.json({ status: released.status });
   });
 
-  app.post("/simulate/clean-audience", (req, res) => {
+  const simulateCleanAudience = (req: express.Request, res: express.Response) => {
     const { creator } = req.body ?? {};
     if (typeof creator !== "string" || creator.trim().length === 0) {
       return res.status(400).json({ error: "Invalid simulation payload" });
@@ -147,13 +146,17 @@ export async function createApp(options: AppOptions = {}) {
         price_increase: cleaned.pricing.recommended_price - current.pricing.recommended_price,
       },
     });
-  });
+  };
+
+  app.post("/api/simulate/clean-audience", simulateCleanAudience);
+  app.post("/simulate/clean-audience", simulateCleanAudience);
 
   const enableVite = options.enableVite ?? process.env.NODE_ENV !== "production";
   const serveFrontend = options.serveFrontend ?? true;
 
   if (serveFrontend) {
     if (enableVite) {
+      const { createServer: createViteServer } = await import("vite");
       const vite = await createViteServer({
         server: { middlewareMode: true },
         appType: "spa",
