@@ -15,13 +15,12 @@ async function getApp() {
   return appPromise;
 }
 
-export async function handleWithApp(req: Request, res: Response, forcedPath?: string) {
-  const app = await getApp();
-  if (forcedPath) {
-    const queryIndex = req.url.indexOf("?");
-    const query = queryIndex >= 0 ? req.url.slice(queryIndex) : "";
-    req.url = `${forcedPath}${query}`;
+export async function handleWithApp(req: Request, res: Response) {
+  try {
+    const app = await getApp();
+    return app(req, res);
+  } catch (error) {
+    console.error("API invocation failed", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
-
-  return app(req, res);
 }

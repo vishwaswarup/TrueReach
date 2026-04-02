@@ -38,42 +38,47 @@ export async function createApp(options: AppOptions = {}) {
   };
 
   const analyzeCreator = async (creator: string, res: express.Response) => {
-    const normalizedCreator = creator.trim().toLowerCase();
-    if (normalizedCreator.length === 0) {
-      return res.status(400).json({ error: "Creator is required" });
+    try {
+      const normalizedCreator = creator.trim().toLowerCase();
+      if (normalizedCreator.length === 0) {
+        return res.status(400).json({ error: "Creator is required" });
+      }
+
+      const mockData = loadDataOrFallback();
+
+      if (delayMs > 0) {
+        await delay(delayMs);
+      }
+
+      const influencer = mockData[normalizedCreator];
+      const isSynthetic = !influencer;
+      const profile = influencer ?? generateCreatorData(normalizedCreator);
+      const commentAnalysis = await generateCommentQualityAnalysis(profile.comments);
+      const analysis = buildAnalysisResult(profile, commentAnalysis);
+      const [aiSummary, pricingInsight] = await Promise.all([
+        generateAuditSummary({
+          profile,
+          score: analysis.score,
+          recommended_price: analysis.pricing.recommended_price,
+          claimed_price: analysis.pricing.claimed_price,
+        }),
+        generatePricingInsight({
+          profile,
+          recommended_price: analysis.pricing.recommended_price,
+          claimed_price: analysis.pricing.claimed_price,
+        }),
+      ]);
+
+      return res.json({
+        ...analysis,
+        ai_summary: aiSummary,
+        pricing_insight: pricingInsight,
+        synthetic: isSynthetic,
+      });
+    } catch (error) {
+      console.error("Analyze request failed", error);
+      return res.status(500).json({ error: "Failed to analyze creator" });
     }
-
-    const mockData = loadDataOrFallback();
-
-    if (delayMs > 0) {
-      await delay(delayMs);
-    }
-
-    const influencer = mockData[normalizedCreator];
-    const isSynthetic = !influencer;
-    const profile = influencer ?? generateCreatorData(normalizedCreator);
-    const commentAnalysis = await generateCommentQualityAnalysis(profile.comments);
-    const analysis = buildAnalysisResult(profile, commentAnalysis);
-    const [aiSummary, pricingInsight] = await Promise.all([
-      generateAuditSummary({
-        profile,
-        score: analysis.score,
-        recommended_price: analysis.pricing.recommended_price,
-        claimed_price: analysis.pricing.claimed_price,
-      }),
-      generatePricingInsight({
-        profile,
-        recommended_price: analysis.pricing.recommended_price,
-        claimed_price: analysis.pricing.claimed_price,
-      }),
-    ]);
-
-    return res.json({
-      ...analysis,
-      ai_summary: aiSummary,
-      pricing_insight: pricingInsight,
-      synthetic: isSynthetic,
-    });
   };
 
   app.get("/api/analyze", async (req, res) => {
