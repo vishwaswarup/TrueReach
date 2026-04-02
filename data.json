@@ -1,0 +1,122 @@
+{
+  "narendra_modi": {
+    "followers": 95000000,
+    "engagement_rate": 3.5,
+    "growth_spike": false,
+    "fake_followers": 5,
+    "repetitive_comments": false,
+    "claimed_price": 10000000
+  },
+  "virat_kohli": {
+    "followers": 270000000,
+    "engagement_rate": 5.8,
+    "growth_spike": false,
+    "fake_followers": 6,
+    "repetitive_comments": false,
+    "claimed_price": 15000000
+  },
+  "ms_dhoni": {
+    "followers": 45000000,
+    "engagement_rate": 6.2,
+    "growth_spike": false,
+    "fake_followers": 4,
+    "repetitive_comments": false,
+    "claimed_price": 8000000
+  },
+  "sachin_tendulkar": {
+    "followers": 40000000,
+    "engagement_rate": 4.5,
+    "growth_spike": false,
+    "fake_followers": 3,
+    "repetitive_comments": false,
+    "claimed_price": 7000000
+  },
+  "rohit_sharma": {
+    "followers": 35000000,
+    "engagement_rate": 4.8,
+    "growth_spike": false,
+    "fake_followers": 5,
+    "repetitive_comments": false,
+    "claimed_price": 6000000
+  },
+  "shah_rukh_khan": {
+    "followers": 45000000,
+    "engagement_rate": 5.2,
+    "growth_spike": false,
+    "fake_followers": 6,
+    "repetitive_comments": false,
+    "claimed_price": 9000000
+  },
+  "salman_khan": {
+    "followers": 70000000,
+    "engagement_rate": 4.0,
+    "growth_spike": false,
+    "fake_followers": 8,
+    "repetitive_comments": false,
+    "claimed_price": 8500000
+  },
+  "deepika_padukone": {
+    "followers": 80000000,
+    "engagement_rate": 4.7,
+    "growth_spike": false,
+    "fake_followers": 7,
+    "repetitive_comments": false,
+    "claimed_price": 9500000
+  },
+  "alia_bhatt": {
+    "followers": 85000000,
+    "engagement_rate": 5.1,
+    "growth_spike": false,
+    "fake_followers": 6,
+    "repetitive_comments": false,
+    "claimed_price": 9000000
+  },
+  "vishw7aaa":{
+    "followers": 372,
+    "engagement_rate": 5.1,
+    "growth_spike": true,
+    "fake_followers": 1,
+    "repetitive_comments": false,
+    "claimed_price": 50
+  },
+  "ranveer_singh": {
+    "followers": 42000000,
+    "engagement_rate": 4.3,
+    "growth_spike": false,
+    "fake_followers": 9,
+    "repetitive_comments": false,
+    "claimed_price": 7000000
+  },
+  "elon_musk": {
+    "followers": 180000000,
+    "engagement_rate": 3.2,
+    "growth_spike": true,
+    "fake_followers": 12,
+    "repetitive_comments": false,
+    "claimed_price": 20000000
+  },
+  "bill_gates": {
+    "followers": 35000000,
+    "engagement_rate": 2.8,
+    "growth_spike": false,
+    "fake_followers": 6,
+    "repetitive_comments": false,
+    "claimed_price": 6000000
+  },
+  "mrbeast": {
+    "followers": 250000000,
+    "engagement_rate": 8.5,
+    "growth_spike": true,
+    "fake_followers": 10,
+    "repetitive_comments": false,
+    "claimed_price": 25000000
+  },
+  "carryminati": {
+    "followers": 20000000,
+    "engagement_rate": 6.8,
+    "growth_spike": false,
+    "fake_followers": 7,
+    "repetitive_comments": false,
+    "claimed_price": 3000000
+  }
+}
